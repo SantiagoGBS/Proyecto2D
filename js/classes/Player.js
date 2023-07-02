@@ -5,12 +5,12 @@ class Player {
             x: 0,
             y: 1
         }
-        this.height = 100
+        this.height = 20
     }
 
     draw() {
         c.fillStyle = "red"
-        c.fillRect(this.position.x, this.position.y, 100, this.height)
+        c.fillRect(this.position.x, this.position.y, 20, this.height)
     }
 
     update() {

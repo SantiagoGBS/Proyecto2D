@@ -5,48 +5,29 @@ canvas.width = 840
 canvas.height = 480
 // canvas.width = 1024
 // canvas.height = 512
-//sss
+
 const scaledCanvas = {
     width: canvas.width / 4,
     height: canvas.height / 4
 }
-// console.log(colisionsuelo)
-const gravity = 0.5
+
+const gravity = 0.4
 
 const colisionsuelo2d = []
+
 for (let i = 0; i < colisionsuelo.length; i += 70) {
     colisionsuelo2d.push(colisionsuelo.slice(i, i + 70))
 }
-console.log(colisionsuelo2d)
-let collisionBlocks = []
-//por cada bloque 2541 es una colision dentro de la matriz principal
-// colisionsuelo.forEach((row, y) => {
-//     row.forEach((symbol, x) => {
-//         // console.log(symbol)
-//         if (symbol === 1) {
-//             collisionBlocks.push(new CollisionBlock({
-//                 position: {
-//                     "x": x*16 ,
-//                     "y": y*16
-//                     // "x": x * 16,
-//                     // "y": y * 16
-//                 },
-//             })
-//             )
-//         }
 
-//     })
-// })
+let collisionBlocks = []
 colisionsuelo2d.forEach((row, y) => {
     row.forEach((symbol, x) => {
-        // console.log(symbol)
+
         if (symbol === 1) {
             collisionBlocks.push(new CollisionBlock({
                 position: {
                     "x": x*12 ,
                     "y": y*12
-                    // "x": x * 16,
-                    // "y": y * 16
                 },
             })
             )
@@ -54,7 +35,28 @@ colisionsuelo2d.forEach((row, y) => {
 
     })
 })
-console.log(collisionBlocks)
+
+
+let plataformaColision2D = []
+for (let i = 0; i < colisionplataforma.length; i += 70) {
+    plataformaColision2D.push(colisionplataforma.slice(i, i + 70))
+}
+let plataformaColisionBloque = []
+plataformaColision2D.forEach((row, y) => {
+    row.forEach((symbol, x) => {
+
+        if (symbol === 1) {
+            plataformaColisionBloque.push(new CollisionBlock({
+                    position: {
+                        "x": x*12 ,
+                        "y": y*12
+                    },
+                })
+            )
+        }
+
+    })
+})
 const player = new Player({
     x: 0,
     y: 0
@@ -93,7 +95,11 @@ function animate() {
             collisionBlock.update()
     
         })
-        // player.update()
+        plataformaColisionBloque.forEach((bloque) => {
+            bloque.update()
+
+        })
+         player.update()
         player.velocity.x = 0
         if (keys.d.pressed) player.velocity.x = 4
         else if (keys.a.pressed) player.velocity.x = -4
