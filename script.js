@@ -119,7 +119,6 @@ window.addEventListener('keydown', (event) => {
             player.velocity.y = -15
             break;
         case 'd':
-            console.log("me estoy moviendo a la derecha")
             break;
     }
 })
