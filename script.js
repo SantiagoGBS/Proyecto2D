@@ -35,7 +35,7 @@ colisionsuelo2d.forEach((row, y) => {
 
     })
 })
-
+console.log(collisionBlocks)
 
 let plataformaColision2D = []
 for (let i = 0; i < colisionplataforma.length; i += 70) {
@@ -58,9 +58,12 @@ plataformaColision2D.forEach((row, y) => {
     })
 })
 const player = new Player({
-    x: 0,
-    y: 0
-}
+    position:{
+        x: 0,
+        y: 0
+    },
+    collisionsBlocks: collisionBlocks
+    }
 )
 let y = 100
 
@@ -101,8 +104,8 @@ function animate() {
         })
          player.update()
         player.velocity.x = 0
-        if (keys.d.pressed) player.velocity.x = 4
-        else if (keys.a.pressed) player.velocity.x = -4
+        if (keys.d.pressed) player.velocity.x = 3
+        else if (keys.a.pressed) player.velocity.x = -3
 }
 
 animate()
@@ -116,7 +119,7 @@ window.addEventListener('keydown', (event) => {
             keys.a.pressed = true
             break;
         case 'w':
-            player.velocity.y = -15
+            player.velocity.y = -10
             break;
         case 'd':
             break;
