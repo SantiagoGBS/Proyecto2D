@@ -62,7 +62,8 @@ const player = new Player({
         x: 0,
         y: 0
     },
-    collisionsBlocks: collisionBlocks
+    collisionsBlocks: collisionBlocks,
+    imageSrc:'./assets/images/protagonista/QUIETO.png'
     }
 )
 let y = 100
