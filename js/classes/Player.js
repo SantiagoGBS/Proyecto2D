@@ -6,12 +6,13 @@ class Player extends Sprite{
             x: 0,
             y: 1
         }
-        this.height = 20
-        this.width =20
+
         this.collisionsBlocks = collisionsBlocks
     }
 
     update() {
+        c.fillStyle='rgba(0,255,0,0.5)'
+        c.fillRect(this.position.x, this.position.y, this.width, this.height)
         this.draw()
         this.position.x += this.velocity.x
         this.comprobarColisionHorizontal()
