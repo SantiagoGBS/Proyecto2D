@@ -63,7 +63,8 @@ const player = new Player({
         y: 0
     },
     collisionsBlocks: collisionBlocks,
-    imageSrc:'./assets/images/protagonista/QUIETO.png'
+    imageSrc:'./assets/images/protagonista/muertetest1.png',
+    frameRate:4,
     }
 )
 let y = 100
@@ -92,7 +93,7 @@ function animate() {
         c.fillRect(0, 0, canvas.width, canvas.height)
     
         c.save()
-        // c.scale(4, 4) 
+        // c.scale(4, 4)
         background.update()
         c.restore()
         collisionBlocks.forEach((collisionBlock) => {
