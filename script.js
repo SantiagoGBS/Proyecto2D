@@ -57,14 +57,21 @@ plataformaColision2D.forEach((row, y) => {
 
     })
 })
+
+
+// './assets/images/protagonista/ataque-bueno_linieal.png'
+// './assets/images/protagonista/muerte_lineal.png'
+// './assets/images/protagonista/caminar_lineal.png'
+// './assets/images/protagonista/quieto_lineal.png'
+
 const player = new Player({
         position: {
             x: 0,
             y: 0
         },
         collisionsBlocks: collisionBlocks,
-        imageSrc: './assets/images/protagonista/ataque-bueno_linieal.png',
-        frameRate: 5,
+        imageSrc: './assets/images/protagonista/muerte_lineal.png',
+        frameRate: 15,
     }
 )
 let y = 100
