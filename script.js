@@ -25,11 +25,11 @@ colisionsuelo2d.forEach((row, y) => {
 
         if (symbol === 1) {
             collisionBlocks.push(new CollisionBlock({
-                position: {
-                    "x": x*12 ,
-                    "y": y*12
-                },
-            })
+                    position: {
+                        "x": x * 12,
+                        "y": y * 12
+                    },
+                })
             )
         }
 
@@ -48,8 +48,8 @@ plataformaColision2D.forEach((row, y) => {
         if (symbol === 1) {
             plataformaColisionBloque.push(new CollisionBlock({
                     position: {
-                        "x": x*12 ,
-                        "y": y*12
+                        "x": x * 12,
+                        "y": y * 12
                     },
                 })
             )
@@ -58,13 +58,13 @@ plataformaColision2D.forEach((row, y) => {
     })
 })
 const player = new Player({
-    position:{
-        x: 0,
-        y: 0
-    },
-    collisionsBlocks: collisionBlocks,
-    imageSrc:'./assets/images/protagonista/muertetest1.png',
-    frameRate:4,
+        position: {
+            x: 0,
+            y: 0
+        },
+        collisionsBlocks: collisionBlocks,
+        imageSrc: './assets/images/protagonista/ataque-bueno_linieal.png',
+        frameRate: 5,
     }
 )
 let y = 100
@@ -88,26 +88,26 @@ const background = new Sprite({
 })
 
 function animate() {
-        window.requestAnimationFrame(animate)
-        c.fillStyle = "white"
-        c.fillRect(0, 0, canvas.width, canvas.height)
-    
-        c.save()
-        // c.scale(4, 4)
-        background.update()
-        c.restore()
-        collisionBlocks.forEach((collisionBlock) => {
-            collisionBlock.update()
-    
-        })
-        plataformaColisionBloque.forEach((bloque) => {
-            bloque.update()
+    window.requestAnimationFrame(animate)
+    c.fillStyle = "white"
+    c.fillRect(0, 0, canvas.width, canvas.height)
 
-        })
-         player.update()
-        player.velocity.x = 0
-        if (keys.d.pressed) player.velocity.x = 3
-        else if (keys.a.pressed) player.velocity.x = -3
+    c.save()
+    // c.scale(4, 4)
+    background.update()
+    c.restore()
+    collisionBlocks.forEach((collisionBlock) => {
+        collisionBlock.update()
+
+    })
+    plataformaColisionBloque.forEach((bloque) => {
+        bloque.update()
+
+    })
+    player.update()
+    player.velocity.x = 0
+    if (keys.d.pressed) player.velocity.x = 3
+    else if (keys.a.pressed) player.velocity.x = -3
 }
 
 animate()
