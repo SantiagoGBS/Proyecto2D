@@ -29,19 +29,21 @@ class Player extends Sprite {
 
         this.draw()
         this.position.x += this.velocity.x
+        this.updateHitbox()
         this.comprobarColisionHorizontal()
         this.gravedad()
+        this.updateHitbox()
         this.comprobarColisionVertical()
     }
 
     updateHitbox() {
         this.hitbox = {
             position: {
-                x: this.position.x + 35,
-                y: this.position.y + 26
+                x: this.position.x + 10,
+                y: this.position.y + 10
             },
-            width: 14,
-            height: 27,
+            width: 30,
+            height: 35,
         }
     }
 
@@ -50,16 +52,19 @@ class Player extends Sprite {
             const collisionsBlocks = this.collisionsBlocks[i]
             if (
                 colision({
-                    object1: this,
+                    object1: this.hitbox,
                     object2: collisionsBlocks,
                 })) {
                 if (this.velocity.x > 0) {
                     this.velocity.x = 0
-                    this.position.x = collisionsBlocks.position.x - this.width - 0.1
+                    const offset = this.hitbox.position.x - this.position.x + this.hitbox.width
+                    this.position.x = collisionsBlocks.position.x - offset - 0.1
                 }
                 if (this.velocity.x < 0) {
                     this.velocity.x = 0
-                    this.position.x = collisionsBlocks.position.x + collisionsBlocks.width + 0.1
+
+                    const offset = this.hitbox.position.x - this.position.x
+                    this.position.x = collisionsBlocks.position.x + collisionsBlocks.width - offset + 0.1
                 }
             }
         }
@@ -75,16 +80,20 @@ class Player extends Sprite {
             const collisionsBlocks = this.collisionsBlocks[i]
             if (
                 colision({
-                    object1: this,
+                    object1: this.hitbox,
                     object2: collisionsBlocks,
                 })) {
                 if (this.velocity.y > 0) {
                     this.velocity.y = 0
-                    this.position.y = collisionsBlocks.position.y - this.height - 0.1
+                    const offset = this.hitbox.position.y - this.position.y + this.hitbox.height
+                    this.position.y = collisionsBlocks.position.y - offset - 0.1
+
                 }
                 if (this.velocity.y < 0) {
                     this.velocity.y = 0
-                    this.position.y = collisionsBlocks.position.y + collisionsBlocks.height + 0.1
+                    const offset = this.hitbox.position.y - this.position.y
+                    this.position.y = collisionsBlocks.position.y + collisionsBlocks.height - offset - 0.1
+
                 }
             }
         }
