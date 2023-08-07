@@ -18,7 +18,6 @@ class Sprite {
     draw() {
         if (!this.image) return
         // c.drawImage(this.image, this.position.x, this.position.y)
-        console.log(this.type)
         if (this.type != null) {
             const frame = {
                 position: {

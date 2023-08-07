@@ -1,5 +1,5 @@
 class Player extends Sprite {
-    constructor({position, collisionsBlocks, imageSrc, frameRate = 1, scale = 0.5, type = 1}) {
+    constructor({position, collisionsBlocks, imageSrc, frameRate = 1, scale = 0.5, animations, type = 1}) {
         super({position, imageSrc, frameRate, type})
         this.position = position
         this.velocity = {
@@ -16,9 +16,21 @@ class Player extends Sprite {
             width: 10,
             height: 10,
         }
+        this.animations = animations
+        for (let key in this.animations) {
+            const image = new Image()
+            image.src = this.animations[key].imageSrc
+            this.animations[key].image=image
+        }
     }
 
-    update() {
+    changeSprite(key) {
+        if (this.image===this.animations[key].image) return
+            this.image = this.animations[key].image
+            this.frameRate=this.animations[key].frameRate
+    }
+
+    update(enemys) {
         this.updateFrames()
         this.updateHitbox()
         c.fillStyle = 'rgba(0,255,0,0.5)'

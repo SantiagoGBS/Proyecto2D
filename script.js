@@ -1,10 +1,8 @@
 const canvas = document.querySelector("canvas")
 const c = canvas.getContext("2d")
-//
+
 canvas.width = 840
 canvas.height = 480
-// canvas.width = 1024
-// canvas.height = 512
 
 const scaledCanvas = {
     width: canvas.width / 4,
@@ -35,12 +33,12 @@ colisionsuelo2d.forEach((row, y) => {
 
     })
 })
-console.log(collisionBlocks)
 
 let plataformaColision2D = []
 for (let i = 0; i < colisionplataforma.length; i += 70) {
     plataformaColision2D.push(colisionplataforma.slice(i, i + 70))
 }
+
 let plataformaColisionBloque = []
 plataformaColision2D.forEach((row, y) => {
     row.forEach((symbol, x) => {
@@ -58,22 +56,60 @@ plataformaColision2D.forEach((row, y) => {
     })
 })
 
-
-// './assets/images/protagonista/ataque-bueno_linieal.png'
-// './assets/images/protagonista/muerte_lineal.png'
-// './assets/images/protagonista/caminar_lineal.png'
-// './assets/images/protagonista/quieto_lineal.png'
-
 const player = new Player({
         position: {
             x: 0,
             y: 0
         },
         collisionsBlocks: collisionBlocks,
-        imageSrc: './assets/images/protagonista/muerte_lineal.png',
+        imageSrc: './assets/images/protagonista/muerte.png',
         frameRate: 15,
-    }
-)
+        animations: {
+            Ataque:{
+                imageSrc:'./assets/images/protagonista/ataque.png',
+                frameRate: 5,
+            },
+            Caminar:{
+                imageSrc:'./assets/images/protagonista/caminar.png',
+                frameRate: 5,
+            },
+            Muerte:{
+                imageSrc:'./assets/images/protagonista/muerte.png',
+                frameRate: 15,
+            },
+        }
+    })
+
+const enemys = []
+for (let i=0; i<2; i++){
+    let x=Math.floor(Math.random()*canvas.width)
+
+    enemys.push(new Enemy(({
+        position: {
+            x: x,
+            y: 0
+        },
+        collisionsBlocks: collisionBlocks,
+        imageSrc: './assets/images/protagonista/caminar.png',
+        frameRate: 5,
+        animations: {
+            Ataque:{
+                imageSrc:'./assets/images/protagonista/ataque.png',
+                frameRate: 5,
+            },
+            Caminar:{
+                imageSrc:'./assets/images/protagonista/caminar.png',
+                frameRate: 5,
+            },
+            Muerte:{
+                imageSrc:'./assets/images/protagonista/muerte.png',
+                frameRate: 15,
+            },
+        }
+    })))
+}
+
+
 let y = 100
 
 const keys = {
@@ -86,6 +122,7 @@ const keys = {
 
 
 }
+
 const background = new Sprite({
     position: {
         x: 0,
@@ -111,10 +148,16 @@ function animate() {
         bloque.update()
 
     })
-    player.update()
+    player.update(enemys)
+    for (const enemy of enemys) {
+        enemy.update(player, enemys)
+    }
     player.velocity.x = 0
-    if (keys.d.pressed) player.velocity.x = 3
-    else if (keys.a.pressed) player.velocity.x = -3
+
+    if (keys.d.pressed){
+        player.changeSprite('Caminar')
+        player.velocity.x = 3
+    }else if (keys.a.pressed) player.velocity.x = -3
 }
 
 animate()
